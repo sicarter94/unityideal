@@ -51,35 +51,22 @@
             position: relative;
         }
 
-        /* Animation élémentaires */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes float {
-            0% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-            100% {
-                transform: translateY(0);
-            }
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
         }
 
         .animated {
             animation: fadeInUp 0.8s ease-out forwards;
         }
 
-        /* Header avec animation */
+        /* Header */
         header {
             background-color: var(--white);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -117,9 +104,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .logo-part {
-            color: var(--accent-yellow);
-        }
+        .logo-part { color: var(--accent-yellow); }
 
         nav ul {
             display: flex;
@@ -140,9 +125,7 @@
             padding: 8px 0;
         }
 
-        nav ul li a:hover {
-            color: var(--accent-yellow);
-        }
+        nav ul li a:hover { color: var(--accent-yellow); }
 
         nav ul li a::after {
             content: '';
@@ -156,9 +139,7 @@
             transition: width 0.4s ease;
         }
 
-        nav ul li a:hover::after {
-            width: 100%;
-        }
+        nav ul li a:hover::after { width: 100%; }
 
         .mobile-menu {
             display: none;
@@ -167,17 +148,57 @@
             color: var(--dark-text);
         }
 
-        /* Hero amélioré avec animations et dégradés */
+        /* =============================================
+           HERO avec Canvas Animation
+           ============================================= */
         .hero {
             padding-top: 180px;
             padding-bottom: 120px;
             text-align: center;
-            background: linear-gradient(135deg, rgba(10, 37, 64, 0.95) 0%, rgba(31, 162, 255, 0.92) 100%);
-            background-size: cover;
-            background-position: center bottom;
+            background: linear-gradient(135deg, rgba(10, 37, 64, 0.97) 0%, rgba(31, 162, 255, 0.94) 100%);
             color: var(--white);
             overflow: hidden;
             position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Canvas d'animation en arrière-plan */
+        #heroCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Effet lumineux subtil qui suit le contenu */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 1;
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+            50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
         }
 
         .hero h2 {
@@ -186,8 +207,25 @@
             margin-bottom: 25px;
             color: var(--white);
             font-weight: 800;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
             animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Ligne décorative animée sous le titre */
+        .hero-line {
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-yellow), var(--accent-blue), var(--accent-yellow));
+            background-size: 200% 100%;
+            margin: 0 auto 30px;
+            border-radius: 2px;
+            animation: shimmerLine 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmerLine {
+            0% { background-position: 0% 50%; width: 80px; }
+            50% { background-position: 100% 50%; width: 160px; }
+            100% { background-position: 0% 50%; width: 80px; }
         }
 
         .hero p {
@@ -196,6 +234,7 @@
             margin: 0 auto 50px;
             opacity: 0.92;
             animation: fadeInUp 0.9s ease-out;
+            text-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
         }
 
         .btn {
@@ -232,11 +271,9 @@
             box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4);
         }
 
-        .btn:hover::before {
-            left: 100%;
-        }
+        .btn:hover::before { left: 100%; }
 
-        /* Services avec animations cartes */
+        /* Services */
         .services {
             background: radial-gradient(ellipse at top, #ffffff 0%, #f8f9ff 100%);
             position: relative;
@@ -332,14 +369,8 @@
             transition: all 0.3s ease;
         }
 
-        .service-card:hover h3 {
-            color: var(--accent-blue);
-        }
-
-        .service-card p {
-            color: #666;
-            margin-bottom: 25px;
-        }
+        .service-card:hover h3 { color: var(--accent-blue); }
+        .service-card p { color: #666; margin-bottom: 25px; }
 
         .price {
             color: var(--accent-yellow);
@@ -349,7 +380,112 @@
             margin-top: 20px;
         }
 
-        /* About avec effet parralaxe */
+        /* Pourquoi un site pro */
+        .why-site {
+            background: linear-gradient(135deg, #0a2540 0%, #123a5c 50%, #1a4f7a 100%);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-site::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23f8f9ff" fill-opacity="1" d="M0,96L60,112C120,128,240,160,360,154.7C480,149,600,107,720,101.3C840,96,960,128,1080,138.7C1200,149,1320,139,1380,133.3L1440,128L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path></svg>') no-repeat top/cover;
+            z-index: 1;
+        }
+
+        .why-site .section-title h2 { color: var(--white); }
+        .why-site .section-title h2::after { background: var(--accent-yellow); }
+
+        .why-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+            font-size: 1.2rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .why-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .why-card:hover {
+            transform: translateY(-12px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .why-card-icon {
+            font-size: 55px;
+            color: var(--accent-yellow);
+            margin-bottom: 25px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .why-card h3 {
+            color: var(--accent-yellow);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .why-card p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .why-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 70px;
+            padding-top: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-item { text-align: center; }
+
+        .stat-number {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-yellow);
+            display: block;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* About */
         .about {
             background: linear-gradient(45deg, #f8f9ff, #f0f5ff);
             position: relative;
@@ -365,16 +501,9 @@
             z-index: 1;
         }
 
-        .about-content h2 {
-            font-size: 2.7rem;
-            margin-bottom: 25px;
-        }
+        .about-content h2 { font-size: 2.7rem; margin-bottom: 25px; }
+        .about-text p { margin-bottom: 25px; }
 
-        .about-text p {
-            margin-bottom: 25px;
-        }
-
-        /* Mise à jour : Image locale pour le cabinet */
         .about-img-placeholder {
             width: 100%;
             height: 380px;
@@ -389,7 +518,6 @@
             animation: fadeInUp 1.2s ease-out;
         }
 
-        /* Effet de superposition professionnel */
         .about-img-placeholder::after {
             content: 'Cabinet Professionnel';
             position: absolute;
@@ -406,7 +534,7 @@
             text-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        /* Témoignages - Section corrigée */
+        /* Testimonials */
         .testimonials {
             background: radial-gradient(ellipse at bottom, #ffffff 0%, #f5f9ff 100%);
             padding-top: 120px;
@@ -482,16 +610,114 @@
             margin-right: 10px;
         }
 
-        .stars {
-            color: var(--accent-yellow);
-            margin-bottom: 20px;
-        }
+        .stars { color: var(--accent-yellow); margin-bottom: 20px; }
 
-        /* Contact dynamique */
-        .contact {
-            background: var(--light-cream);
+        /* FAQ */
+        .faq {
+            background: radial-gradient(ellipse at top, #ffffff 0%, #f5f8ff 100%);
             position: relative;
         }
+
+        .faq-container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .faq-item.animated { opacity: 1; transform: translateY(0); }
+        .faq-item:hover { box-shadow: 0 10px 35px rgba(10, 37, 64, 0.15); }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .faq-question:hover { background: rgba(255, 215, 0, 0.05); }
+
+        .faq-question h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0;
+            color: var(--deep-blue);
+            flex: 1;
+            padding-right: 20px;
+            line-height: 1.5;
+        }
+
+        .faq-question .faq-icon {
+            font-size: 1.5rem;
+            color: var(--accent-yellow);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .faq-item.active .faq-question .faq-icon {
+            transform: rotate(45deg);
+            color: var(--accent-blue);
+        }
+
+        .faq-item.active .faq-question {
+            background: rgba(255, 215, 0, 0.08);
+            border-bottom: 2px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .faq-item.active .faq-question h3 { color: var(--accent-blue); }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
+            padding: 0 30px;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 25px 30px;
+        }
+
+        .faq-answer p { color: #555; line-height: 1.8; font-size: 1.05rem; }
+
+        .faq-answer ul {
+            margin: 10px 0;
+            padding-left: 20px;
+            color: #555;
+        }
+
+        .faq-answer ul li { margin-bottom: 8px; line-height: 1.6; }
+
+        .faq-cta {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(10, 37, 64, 0.05), rgba(31, 162, 255, 0.05));
+            border-radius: 20px;
+            border: 2px dashed rgba(255, 215, 0, 0.3);
+        }
+
+        .faq-cta p {
+            font-size: 1.3rem;
+            color: var(--deep-blue);
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        /* Contact */
+        .contact { background: var(--light-cream); position: relative; }
 
         .contact-grid {
             display: grid;
@@ -499,10 +725,7 @@
             gap: 60px;
         }
 
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-        }
+        .contact-info { display: flex; flex-direction: column; }
 
         .contact-item {
             display: flex;
@@ -525,10 +748,7 @@
             justify-content: center;
         }
 
-        .contact-text h3 {
-            font-size: 1.4rem;
-            margin-bottom: 8px;
-        }
+        .contact-text h3 { font-size: 1.4rem; margin-bottom: 8px; }
 
         .contact-form {
             background: var(--white);
@@ -538,9 +758,7 @@
             animation: fadeInUp 1.2s ease-out;
         }
 
-        .form-group {
-            margin-bottom: 25px;
-        }
+        .form-group { margin-bottom: 25px; }
 
         .form-group input, .form-group textarea {
             width: 100%;
@@ -558,12 +776,9 @@
             outline: none;
         }
 
-        .form-group textarea {
-            height: 160px;
-            resize: vertical;
-        }
+        .form-group textarea { height: 160px; resize: vertical; }
 
-        /* WhatsApp Button amélioré */
+        /* WhatsApp Button */
         .whatsapp-float {
             position: fixed;
             bottom: 35px;
@@ -594,12 +809,9 @@
             box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
         }
 
-        .whatsapp-icon {
-            font-size: 1.8rem;
-            margin-right: 12px;
-        }
+        .whatsapp-icon { font-size: 1.8rem; margin-right: 12px; }
 
-        /* Footer avec animations */
+        /* Footer */
         footer {
             background: var(--deep-blue);
             color: var(--white);
@@ -635,18 +847,9 @@
             display: inline-block;
         }
 
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links li:hover {
-            transform: translateX(5px);
-        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 15px; transition: all 0.3s ease; }
+        .footer-links li:hover { transform: translateX(5px); }
 
         .footer-links a {
             color: rgba(255, 255, 255, 0.82);
@@ -656,20 +859,10 @@
             align-items: center;
         }
 
-        .footer-links a:hover {
-            color: var(--accent-yellow);
-        }
+        .footer-links a:hover { color: var(--accent-yellow); }
+        .footer-links i { margin-right: 10px; color: var(--accent-yellow); font-size: 1.2rem; }
 
-        .footer-links i {
-            margin-right: 10px;
-            color: var(--accent-yellow);
-            font-size: 1.2rem;
-        }
-
-        .social-icons {
-            display: flex;
-            margin-top: 30px;
-        }
+        .social-icons { display: flex; margin-top: 30px; }
 
         .social-icons a {
             display: flex;
@@ -703,24 +896,14 @@
 
         /* Responsive */
         @media (max-width: 1080px) {
-            .hero h2 {
-                font-size: 3.2rem;
-            }
-            
-            section {
-                padding: 80px 0;
-            }
-            
-            .service-card, .testimonial-card {
-                padding: 30px 25px;
-            }
+            .hero h2 { font-size: 3.2rem; }
+            section { padding: 80px 0; }
+            .service-card, .testimonial-card { padding: 30px 25px; }
         }
 
         @media (max-width: 768px) {
-            .logo h1 {
-                font-size: 1.65rem;
-            }
-            
+            .logo h1 { font-size: 1.65rem; }
+
             nav ul {
                 display: none;
                 position: absolute;
@@ -732,79 +915,38 @@
                 flex-direction: column;
                 padding: 20px 0;
             }
-            
-            nav ul.show {
-                display: flex;
-            }
-            
+
+            nav ul.show { display: flex; }
+
             nav ul li {
                 margin: 0;
                 padding: 15px 30px;
                 border-bottom: 1px solid rgba(0,0,0,0.05);
             }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .hero {
-                padding-top: 140px;
-                padding-bottom: 90px;
-            }
-            
-            .hero h2 {
-                font-size: 2.6rem;
-            }
-            
-            .hero p {
-                font-size: 1.2rem;
-            }
-            
-            .section-title h2 {
-                font-size: 2.3rem;
-            }
-            
-            .about-img-placeholder {
-                height: 300px;
-            }
-            
-            .whatsapp-float {
-                bottom: 25px;
-                right: 25px;
-            }
+
+            .mobile-menu { display: block; }
+
+            .hero { padding-top: 140px; padding-bottom: 90px; min-height: auto; }
+            .hero h2 { font-size: 2.6rem; }
+            .hero p { font-size: 1.2rem; }
+            .section-title h2 { font-size: 2.3rem; }
+            .about-img-placeholder { height: 300px; }
+            .whatsapp-float { bottom: 25px; right: 25px; }
+            .why-grid { grid-template-columns: 1fr; }
+            .stat-number { font-size: 2.4rem; }
+            .faq-question h3 { font-size: 1.05rem; }
+            .faq-question { padding: 20px 22px; }
         }
 
         @media (max-width: 576px) {
-            .hero {
-                padding-top: 130px;
-                padding-bottom: 70px;
-            }
-            
-            .hero h2 {
-                font-size: 2.2rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            
-            .whatsapp-button {
-                padding: 14px 20px;
-                font-size: 1rem;
-            }
-            
-            .contact-form {
-                padding: 30px 25px;
-            }
-            
-            .about-img-placeholder {
-                height: 280px;
-            }
+            .hero { padding-top: 130px; padding-bottom: 70px; }
+            .hero h2 { font-size: 2.2rem; }
+            .hero p { font-size: 1.1rem; }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+            .whatsapp-button { padding: 14px 20px; font-size: 1rem; }
+            .contact-form { padding: 30px 25px; }
+            .about-img-placeholder { height: 280px; }
+            .why-stats { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -817,24 +959,23 @@
         </div>
     </a>
 
-    <!-- Header Section -->
+    <!-- Header -->
     <header id="header">
         <div class="container">
             <div class="nav-container">
                 <div class="logo">
                     <h1>Unity <span class="logo-part">I-Deal</span></h1>
                 </div>
-                
                 <nav>
                     <ul id="menu">
                         <li><a href="#accueil">Accueil</a></li>
                         <li><a href="#services">Services</a></li>
+                        <li><a href="#pourquoi">Pourquoi un site</a></li>
                         <li><a href="#apropos">À Propos</a></li>
-                        <li><a href="#temoignages">Témoignages</a></li>
+                        <li><a href="#faq">FAQ</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </nav>
-                
                 <div class="mobile-menu" id="mobileMenu">
                     <i class="fas fa-bars"></i>
                 </div>
@@ -842,48 +983,44 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- =============================================
+         HERO avec Canvas Animation 3D
+         ============================================= -->
     <section class="hero" id="accueil">
-        <div class="container">
+        <canvas id="heroCanvas"></canvas>
+        <div class="hero-content container">
             <h2>Création de sites web sur mesure, rapides et modernes</h2>
+            <div class="hero-line"></div>
             <p>Développeur freelance professionnel disponible partout en Haïti et à l'international</p>
             <a href="#contact" class="btn">Prendre contact</a>
         </div>
     </section>
 
-    <!-- Services Section -->
+    <!-- Services -->
     <section class="services" id="services">
         <div class="container">
             <div class="section-title">
                 <h2>Nos Services</h2>
             </div>
-            
             <div class="services-grid">
-                <!-- Pack Starter -->
                 <div class="service-card" data-animation-delay="0">
                     <i class="fas fa-rocket service-icon"></i>
                     <h3>Pack Starter</h3>
                     <p>Site d'une page avec présentation efficace, idéal pour lancement d'activité</p>
                     <div class="price">$150 - $250</div>
                 </div>
-                
-                <!-- Pack Vitrine Pro -->
                 <div class="service-card" data-animation-delay="0.1">
                     <i class="fas fa-laptop service-icon"></i>
                     <h3>Pack Vitrine Pro</h3>
                     <p>Site professionnel avec 3 à 5 pages pour présenter votre activité en détail</p>
                     <div class="price">$300 - $600</div>
                 </div>
-                
-                <!-- Pack Boutique -->
                 <div class="service-card" data-animation-delay="0.2">
                     <i class="fas fa-shopping-cart service-icon"></i>
                     <h3>Pack Boutique</h3>
                     <p>Boutique en ligne complète avec catalogue produit et système de calcul de prix</p>
                     <div class="price">$500 - $900</div>
                 </div>
-                
-                <!-- Pack Premium+ -->
                 <div class="service-card" data-animation-delay="0.3">
                     <i class="fas fa-crown service-icon"></i>
                     <h3>Pack Premium+</h3>
@@ -894,20 +1031,82 @@
         </div>
     </section>
 
-    <!-- About Section avec image locale -->
+    <!-- Pourquoi un site pro -->
+    <section class="why-site" id="pourquoi">
+        <div class="container">
+            <div class="section-title">
+                <h2>Pourquoi avoir votre site professionnel ?</h2>
+            </div>
+            <p class="why-intro">
+                En 2025, ne pas avoir de site web, c'est comme avoir une boutique sans enseigne.
+                Votre site professionnel est votre vitrine digitale, ouverte 24h/24, accessible partout dans le monde.
+            </p>
+            <div class="why-grid">
+                <div class="why-card" data-animation-delay="0">
+                    <i class="fas fa-globe why-card-icon"></i>
+                    <h3>Visibilité mondiale 24h/24</h3>
+                    <p>Votre site travaille pour vous même quand vous dormez. Clients locaux ou internationaux peuvent découvrir vos services à toute heure.</p>
+                </div>
+                <div class="why-card" data-animation-delay="0.1">
+                    <i class="fas fa-handshake why-card-icon"></i>
+                    <h3>Crédibilité & Confiance</h3>
+                    <p>Un site professionnel renforce immédiatement la confiance. 75% des consommateurs jugent la crédibilité d'une entreprise par son site web.</p>
+                </div>
+                <div class="why-card" data-animation-delay="0.2">
+                    <i class="fas fa-chart-line why-card-icon"></i>
+                    <h3>Croissance des ventes</h3>
+                    <p>Transformez vos visiteurs en clients. Un site bien conçu peut multiplier vos conversions par 3 ou plus.</p>
+                </div>
+                <div class="why-card" data-animation-delay="0.3">
+                    <i class="fas fa-bullhorn why-card-icon"></i>
+                    <h3>Marketing efficace</h3>
+                    <p>Réseaux sociaux, Google, email... Toutes vos stratégies convergent vers votre site, hub central de votre communication.</p>
+                </div>
+                <div class="why-card" data-animation-delay="0.4">
+                    <i class="fas fa-users why-card-icon"></i>
+                    <h3>Devancer la concurrence</h3>
+                    <p>Vos concurrents ont un site ? Démarquez-vous. Ils n'en ont pas ? Prenez l'avantage immédiatement.</p>
+                </div>
+                <div class="why-card" data-animation-delay="0.5">
+                    <i class="fas fa-mobile-alt why-card-icon"></i>
+                    <h3>Accessible sur mobile</h3>
+                    <p>Plus de 70% du trafic vient du mobile. Nos sites sont 100% responsive sur tous les appareils.</p>
+                </div>
+            </div>
+            <div class="why-stats">
+                <div class="stat-item">
+                    <span class="stat-number">97%</span>
+                    <span class="stat-label">des clients cherchent en ligne avant d'acheter</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">75%</span>
+                    <span class="stat-label">jugent la crédibilité par le site web</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3x</span>
+                    <span class="stat-label">plus de conversions avec un bon site</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">votre vitrine ouverte en permanence</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
     <section class="about" id="apropos">
         <div class="container">
             <div class="about-grid">
                 <div class="about-content">
                     <h2>À propos de moi</h2>
                     <div class="about-text">
-                        <p>Je suis un développeur web freelance passionné et expérimenté, spécialisé dans la création de sites sur mesure, rapides et modernes. Avec plus de 8 ans d'expérience dans le développement front-end et back-end, je maîtrise un large éventail de technologies pour réaliser vos projets web.</p>
-                        <p>Mon approche est centrée sur les besoins du client pour chaque projet. Je m'engage à fournir des solutions sur mesure qui correspondent à votre vision et intégrant les dernières pratiques du marché.</p>
+                        <p>Je suis un développeur web freelance passionné et expérimenté, spécialisé dans la création de sites sur mesure, rapides et modernes. Avec plus de 8 ans d'expérience dans le développement front-end et back-end, je maîtrise un large éventail de technologies.</p>
+                        <p>Mon approche est centrée sur les besoins du client. Je m'engage à fournir des solutions sur mesure qui correspondent à votre vision et intégrant les dernières pratiques du marché.</p>
                         <p>Basé à Port-au-Prince mais opérant à l'international, je travaille avec des clients de différents secteurs pour créer des sites web performants et esthétiques.</p>
                     </div>
                     <a href="#contact" class="btn">Travaillons ensemble</a>
                 </div>
-                
                 <div class="about-img">
                     <div class="about-img-placeholder"></div>
                 </div>
@@ -915,54 +1114,33 @@
         </div>
     </section>
 
-    <!-- Testimonials Section corrigée -->
+    <!-- Testimonials -->
     <section class="testimonials" id="temoignages">
         <div class="container">
             <div class="section-title">
                 <h2>Témoignages Clients</h2>
             </div>
-            
             <div class="testimonials-grid">
                 <div class="testimonial-card" data-animation-delay="0">
-                    <div class="quote-icon">
-                        <i class="fas fa-quote-left"></i>
-                    </div>
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
                     <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
                     <p class="testimonial-text">"Le site développé par Unity I-Deal a complètement transformé notre présence en ligne. Notre trafic a augmenté de 150% en seulement 3 mois!"</p>
                     <p class="client-name">- Marie J., Boutique en ligne</p>
                 </div>
-                
                 <div class="testimonial-card" data-animation-delay="0.1">
-                    <div class="quote-icon">
-                        <i class="fas fa-quote-left"></i>
-                    </div>
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
                     <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
                     <p class="testimonial-text">"Service professionnel et réactif. Notre page vitrine a été livrée rapidement et dépasse largement nos attentes en terme de design et fonctionnalités"</p>
                     <p class="client-name">- Pierre L., Startup Tech</p>
                 </div>
-                
                 <div class="testimonial-card" data-animation-delay="0.2">
-                    <div class="quote-icon">
-                        <i class="fas fa-quote-left"></i>
-                    </div>
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
                     <div class="stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                     </div>
                     <p class="testimonial-text">"Ce développeur freelance a vraiment compris nos besoins. Un partenaire de confiance pour nos projets web avec toujours des solutions innovantes"</p>
                     <p class="client-name">- Jean-Marc G., Entreprise</p>
@@ -971,13 +1149,117 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Questions Fréquentes</h2>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item" data-animation-delay="0">
+                    <div class="faq-question">
+                        <h3><i class="fas fa-clock" style="color: var(--accent-yellow); margin-right: 12px;"></i>Combien de temps faut-il pour créer un site web ?</h3>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Le délai dépend du type de projet :</p>
+                        <ul>
+                            <li><strong>Pack Starter (1 page) :</strong> 3 à 5 jours ouvrables</li>
+                            <li><strong>Pack Vitrine Pro (3-5 pages) :</strong> 1 à 2 semaines</li>
+                            <li><strong>Pack Boutique :</strong> 2 à 3 semaines</li>
+                            <li><strong>Pack Premium+ :</strong> 3 à 5 semaines</li>
+                        </ul>
+                        <p>Ces délais peuvent varier selon la rapidité de fourniture de vos contenus.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-animation-delay="0.1">
+                    <div class="faq-question">
+                        <h3><i class="fas fa-dollar-sign" style="color: var(--accent-yellow); margin-right: 12px;"></i>Comment se déroule le paiement ?</h3>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Le paiement se fait en deux étapes :</p>
+                        <ul>
+                            <li><strong>50% à la commande</strong> pour démarrer le projet</li>
+                            <li><strong>50% à la livraison</strong> une fois le site validé</li>
+                        </ul>
+                        <p>Nous acceptons virement bancaire, MonCash, et transfert international.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-animation-delay="0.2">
+                    <div class="faq-question">
+                        <h3><i class="fas fa-edit" style="color: var(--accent-yellow); margin-right: 12px;"></i>Puis-je modifier mon site après la livraison ?</h3>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolument ! Vous bénéficiez de <strong>2 séries de modifications mineures gratuites</strong>. Pour des modifications plus importantes, un devis complémentaire vous sera proposé à tarif préférentiel.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-animation-delay="0.3">
+                    <div class="faq-question">
+                        <h3><i class="fas fa-server" style="color: var(--accent-yellow); margin-right: 12px;"></i>L'hébergement et le nom de domaine sont-ils inclus ?</h3>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Le prix couvre la <strong>conception et le développement</strong>. L'hébergement et le domaine sont des frais annuels séparés ($15–$80/an). Nous vous accompagnons dans leur configuration.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-animation-delay="0.4">
+                    <div class="faq-question">
+                        <h3><i class="fas fa-mobile-alt" style="color: var(--accent-yellow); margin-right: 12px;"></i>Mon site sera-t-il adapté aux mobiles ?</h3>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Oui, 100% !</strong> Tous nos sites sont responsive design. Ils s'adaptent automatiquement à tous les écrans. C'est un standard non négociable dans tous nos packs.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-animation-delay="0.5">
+                    <div class="faq-question">
+                        <h3><i class="fas fa-search" style="color: var(--accent-yellow); margin-right: 12px;"></i>Mon site apparaîtra-t-il sur Google ?</h3>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Tous nos sites intègrent les <strong>bases du SEO</strong>. Le Pack Premium+ inclut une optimisation avancée pour maximiser votre positionnement sur Google.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-animation-delay="0.6">
+                    <div class="faq-question">
+                        <h3><i class="fas fa-tools" style="color: var(--accent-yellow); margin-right: 12px;"></i>Proposez-vous un service de maintenance ?</h3>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oui ! Nos <strong>forfaits de maintenance</strong> incluent :</p>
+                        <ul>
+                            <li>Mises à jour de sécurité et sauvegardes</li>
+                            <li>Corrections de bugs</li>
+                            <li>Petites modifications de contenu</li>
+                            <li>Monitoring de disponibilité</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="faq-item" data-animation-delay="0.7">
+                    <div class="faq-question">
+                        <h3><i class="fas fa-map-marked-alt" style="color: var(--accent-yellow); margin-right: 12px;"></i>Travaillez-vous uniquement en Haïti ?</h3>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong>Non, nous travaillons à l'international !</strong> Basé à Port-au-Prince, nous collaborons avec des clients dans toute la Caraïbe, en Amérique du Nord, en Europe et en Afrique.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-cta">
+                <p>Vous avez d'autres questions ? N'hésitez pas à nous contacter !</p>
+                <a href="#contact" class="btn">Posez votre question</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
     <section class="contact" id="contact">
         <div class="container">
             <div class="section-title">
                 <h2>Contactez-moi</h2>
             </div>
-            
             <div class="contact-grid">
                 <div class="contact-info">
                     <div class="contact-item">
@@ -987,7 +1269,6 @@
                             <p>Delmas 75, Cassagnol #27, Haïti</p>
                         </div>
                     </div>
-                    
                     <div class="contact-item">
                         <i class="fas fa-envelope contact-icon"></i>
                         <div class="contact-text">
@@ -995,7 +1276,6 @@
                             <p>unityideal2019@gmail.com</p>
                         </div>
                     </div>
-                    
                     <div class="contact-item">
                         <i class="fas fa-phone-alt contact-icon"></i>
                         <div class="contact-text">
@@ -1003,12 +1283,10 @@
                             <p>+509 4464-3250</p>
                         </div>
                     </div>
-                    
                     <a href="https://wa.me/50944643250" class="btn" target="_blank">
                         <i class="fab fa-whatsapp"></i> WhatsApp
                     </a>
                 </div>
-                
                 <div class="contact-form">
                     <form id="contactForm">
                         <div class="form-group">
@@ -1041,18 +1319,17 @@
                         <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
-                
                 <div class="footer-section">
                     <h3>Liens rapides</h3>
                     <ul class="footer-links">
                         <li><a href="#accueil"><i class="fas fa-chevron-right"></i> Accueil</a></li>
                         <li><a href="#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="#pourquoi"><i class="fas fa-chevron-right"></i> Pourquoi un site</a></li>
                         <li><a href="#apropos"><i class="fas fa-chevron-right"></i> À Propos</a></li>
-                        <li><a href="#temoignages"><i class="fas fa-chevron-right"></i> Témoignages</a></li>
+                        <li><a href="#faq"><i class="fas fa-chevron-right"></i> FAQ</a></li>
                         <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
                     </ul>
                 </div>
-                
                 <div class="footer-section">
                     <h3>Contact</h3>
                     <ul class="footer-links">
@@ -1062,7 +1339,6 @@
                     </ul>
                 </div>
             </div>
-            
             <div class="copyright">
                 <p>&copy; 2025 Unity I-Deal – Web Services. Tous droits réservés.</p>
             </div>
@@ -1070,12 +1346,316 @@
     </footer>
 
     <script>
-        // Animation au défilement
+        // =============================================
+        // ANIMATION CANVAS — Sphères 3D & Carrés Géométriques
+        // =============================================
+        (function() {
+            const canvas = document.getElementById('heroCanvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let mouseX = 0, mouseY = 0;
+            let particles = [];
+            let connections = [];
+            let animationId;
+
+            // Redimensionnement responsive
+            function resize() {
+                const hero = canvas.parentElement;
+                width = canvas.width = hero.offsetWidth;
+                height = canvas.height = hero.offsetHeight;
+            }
+
+            // Classe Particule — sphères et carrés
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+
+                reset() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.z = Math.random() * 300 + 50; // Profondeur 3D
+                    this.vx = (Math.random() - 0.5) * 0.6;
+                    this.vy = (Math.random() - 0.5) * 0.6;
+                    this.vz = (Math.random() - 0.5) * 0.3;
+
+                    // Type : 0 = sphère, 1 = carré, 2 = losange
+                    this.type = Math.floor(Math.random() * 3);
+
+                    // Taille de base
+                    this.baseSize = Math.random() * 12 + 4;
+
+                    // Couleur dorée / bleue / blanche avec variation
+                    const colorChoice = Math.random();
+                    if (colorChoice < 0.35) {
+                        this.color = { r: 255, g: 215, b: 0 };       // Doré
+                    } else if (colorChoice < 0.65) {
+                        this.color = { r: 31, g: 162, b: 255 };      // Bleu accent
+                    } else if (colorChoice < 0.85) {
+                        this.color = { r: 255, g: 255, b: 255 };     // Blanc
+                    } else {
+                        this.color = { r: 100, g: 200, b: 255 };     // Bleu clair
+                    }
+
+                    this.baseAlpha = Math.random() * 0.3 + 0.1;
+                    this.rotationAngle = Math.random() * Math.PI * 2;
+                    this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+                    this.pulsePhase = Math.random() * Math.PI * 2;
+                    this.pulseSpeed = Math.random() * 0.015 + 0.005;
+                }
+
+                update(time) {
+                    // Mouvement fluide
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.z += this.vz;
+
+                    // Rotation
+                    this.rotationAngle += this.rotationSpeed;
+
+                    // Pulsation douce
+                    this.pulsePhase += this.pulseSpeed;
+
+                    // Rebond profondeur
+                    if (this.z < 30 || this.z > 350) this.vz *= -1;
+
+                    // Rebord avec marge
+                    if (this.x < -50) this.x = width + 50;
+                    if (this.x > width + 50) this.x = -50;
+                    if (this.y < -50) this.y = height + 50;
+                    if (this.y > height + 50) this.y = -50;
+
+                    // Interaction subtile avec la souris
+                    const dx = this.x - mouseX;
+                    const dy = this.y - mouseY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 200) {
+                        const force = (200 - dist) / 200 * 0.008;
+                        this.vx += dx * force;
+                        this.vy += dy * force;
+                    }
+
+                    // Friction douce pour limiter la vitesse
+                    this.vx *= 0.998;
+                    this.vy *= 0.998;
+                }
+
+                draw(ctx) {
+                    // Projection 3D perspective
+                    const perspective = 400;
+                    const scale = perspective / (perspective + this.z);
+                    const screenX = width / 2 + (this.x - width / 2) * scale;
+                    const screenY = height / 2 + (this.y - height / 2) * scale;
+                    const size = this.baseSize * scale;
+
+                    // Pulsation
+                    const pulse = 1 + Math.sin(this.pulsePhase) * 0.2;
+                    const finalSize = size * pulse;
+
+                    // Alpha basé sur profondeur
+                    const alpha = this.baseAlpha * scale * (0.8 + Math.sin(this.pulsePhase) * 0.2);
+
+                    ctx.save();
+                    ctx.translate(screenX, screenY);
+                    ctx.rotate(this.rotationAngle);
+                    ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+
+                    const { r, g, b } = this.color;
+
+                    if (this.type === 0) {
+                        // ===== SPHÈRE 3D avec dégradé radial =====
+                        const gradient = ctx.createRadialGradient(
+                            -finalSize * 0.3, -finalSize * 0.3, finalSize * 0.1,
+                            0, 0, finalSize
+                        );
+                        gradient.addColorStop(0, `rgba(${Math.min(255, r + 80)}, ${Math.min(255, g + 80)}, ${Math.min(255, b + 80)}, ${alpha * 1.5})`);
+                        gradient.addColorStop(0.5, `rgba(${r}, ${g}, ${b}, ${alpha})`);
+                        gradient.addColorStop(1, `rgba(${Math.max(0, r - 50)}, ${Math.max(0, g - 50)}, ${Math.max(0, b - 50)}, ${alpha * 0.3})`);
+
+                        ctx.beginPath();
+                        ctx.arc(0, 0, finalSize, 0, Math.PI * 2);
+                        ctx.fillStyle = gradient;
+                        ctx.fill();
+
+                        // Reflet brillant
+                        ctx.beginPath();
+                        ctx.arc(-finalSize * 0.25, -finalSize * 0.25, finalSize * 0.25, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.6})`;
+                        ctx.fill();
+
+                    } else if (this.type === 1) {
+                        // ===== CARRÉ avec dégradé et bords arrondis =====
+                        const halfSize = finalSize * 0.85;
+                        const radius = halfSize * 0.2;
+
+                        // Ombre portée légère
+                        ctx.shadowColor = `rgba(${r}, ${g}, ${b}, ${alpha * 0.5})`;
+                        ctx.shadowBlur = finalSize * 0.8;
+
+                        ctx.beginPath();
+                        ctx.moveTo(-halfSize + radius, -halfSize);
+                        ctx.lineTo(halfSize - radius, -halfSize);
+                        ctx.quadraticCurveTo(halfSize, -halfSize, halfSize, -halfSize + radius);
+                        ctx.lineTo(halfSize, halfSize - radius);
+                        ctx.quadraticCurveTo(halfSize, halfSize, halfSize - radius, halfSize);
+                        ctx.lineTo(-halfSize + radius, halfSize);
+                        ctx.quadraticCurveTo(-halfSize, halfSize, -halfSize, halfSize - radius);
+                        ctx.lineTo(-halfSize, -halfSize + radius);
+                        ctx.quadraticCurveTo(-halfSize, -halfSize, -halfSize + radius, -halfSize);
+                        ctx.closePath();
+
+                        const squareGradient = ctx.createLinearGradient(-halfSize, -halfSize, halfSize, halfSize);
+                        squareGradient.addColorStop(0, `rgba(${Math.min(255, r + 40)}, ${Math.min(255, g + 40)}, ${Math.min(255, b + 40)}, ${alpha * 0.8})`);
+                        squareGradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, ${alpha * 0.4})`);
+
+                        ctx.fillStyle = squareGradient;
+                        ctx.fill();
+
+                        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha * 0.6})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+
+                        ctx.shadowColor = 'transparent';
+                        ctx.shadowBlur = 0;
+
+                    } else {
+                        // ===== LOSANGE élégant =====
+                        const diamondSize = finalSize * 1.1;
+
+                        ctx.shadowColor = `rgba(${r}, ${g}, ${b}, ${alpha * 0.4})`;
+                        ctx.shadowBlur = finalSize * 0.6;
+
+                        ctx.beginPath();
+                        ctx.moveTo(0, -diamondSize);
+                        ctx.lineTo(diamondSize * 0.6, 0);
+                        ctx.lineTo(0, diamondSize);
+                        ctx.lineTo(-diamondSize * 0.6, 0);
+                        ctx.closePath();
+
+                        const diamondGradient = ctx.createLinearGradient(0, -diamondSize, 0, diamondSize);
+                        diamondGradient.addColorStop(0, `rgba(${Math.min(255, r + 60)}, ${Math.min(255, g + 60)}, ${Math.min(255, b + 60)}, ${alpha * 0.9})`);
+                        diamondGradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, ${alpha * 0.3})`);
+
+                        ctx.fillStyle = diamondGradient;
+                        ctx.fill();
+
+                        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha * 0.5})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+
+                        ctx.shadowColor = 'transparent';
+                        ctx.shadowBlur = 0;
+                    }
+
+                    ctx.restore();
+
+                    // Stocker la position projetée pour les connexions
+                    this.screenX = screenX;
+                    this.screenY = screenY;
+                    this.screenAlpha = alpha;
+                    this.screenScale = scale;
+                }
+            }
+
+            // Initialisation des particules
+            function initParticles() {
+                particles = [];
+                // Nombre adapté à la taille d'écran
+                const count = Math.min(Math.floor(width * height / 15000), 60);
+                for (let i = 0; i < count; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            // Dessiner les connexions entre particules proches
+            function drawConnections() {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const p1 = particles[i];
+                        const p2 = particles[j];
+                        const dx = p1.screenX - p2.screenX;
+                        const dy = p1.screenY - p2.screenY;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+
+                        if (dist < 180) {
+                            const alpha = (1 - dist / 180) * 0.12 * Math.min(p1.screenScale, p2.screenScale);
+                            ctx.beginPath();
+                            ctx.moveTo(p1.screenX, p1.screenY);
+                            ctx.lineTo(p2.screenX, p2.screenY);
+                            ctx.strokeStyle = `rgba(255, 215, 0, ${alpha})`;
+                            ctx.lineWidth = alpha * 3;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            // Boucle d'animation
+            let time = 0;
+            function animate() {
+                time++;
+                ctx.clearRect(0, 0, width, height);
+
+                // Mise à jour et dessin de chaque particule
+                particles.forEach(p => {
+                    p.update(time);
+                    p.draw(ctx);
+                });
+
+                // Lignes de connexion élégantes
+                drawConnections();
+
+                animationId = requestAnimationFrame(animate);
+            }
+
+            // Gestion de la souris
+            const hero = canvas.parentElement;
+            hero.addEventListener('mousemove', (e) => {
+                const rect = hero.getBoundingClientRect();
+                mouseX = e.clientX - rect.left;
+                mouseY = e.clientY - rect.top;
+            });
+
+            hero.addEventListener('mouseleave', () => {
+                mouseX = width / 2;
+                mouseY = height / 2;
+            });
+
+            // Initialisation
+            resize();
+            initParticles();
+            mouseX = width / 2;
+            mouseY = height / 2;
+            animate();
+
+            // Redimensionnement fenêtre
+            window.addEventListener('resize', () => {
+                resize();
+                initParticles();
+            });
+
+            // Pause de l'animation quand hors vue (performance)
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (!animationId) animate();
+                    } else {
+                        cancelAnimationFrame(animationId);
+                        animationId = null;
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            observer.observe(hero);
+        })();
+
+        // =============================================
+        // APPLICATION PRINCIPALE
+        // =============================================
         document.addEventListener('DOMContentLoaded', function() {
             // Animation au scroll
             const animateOnScroll = () => {
-                const animatedElements = document.querySelectorAll('.service-card, .testimonial-card');
-                
+                const animatedElements = document.querySelectorAll('.service-card, .testimonial-card, .why-card, .faq-item');
                 animatedElements.forEach(el => {
                     const position = el.getBoundingClientRect();
                     if(position.top < window.innerHeight - 100 && !el.classList.contains('animated')) {
@@ -1088,15 +1668,14 @@
                     }
                 });
             };
-            
+
             // Menu mobile
             const mobileMenuBtn = document.getElementById('mobileMenu');
             const menu = document.getElementById('menu');
-            
             mobileMenuBtn.addEventListener('click', () => {
                 menu.classList.toggle('show');
             });
-            
+
             // Navigation fluide
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
@@ -1107,16 +1686,14 @@
                             top: target.offsetTop - 100,
                             behavior: 'smooth'
                         });
-                        
-                        // Fermer le menu mobile après clic
                         if(menu.classList.contains('show')) {
                             menu.classList.remove('show');
                         }
                     }
                 });
             });
-            
-            // Changement de header au scroll
+
+            // Header scroll
             const header = document.getElementById('header');
             window.addEventListener('scroll', () => {
                 if(window.scrollY > 50) {
@@ -1126,11 +1703,10 @@
                 }
                 animateOnScroll();
             });
-            
-            // Déclencher l'animation initiale
+
             animateOnScroll();
-            
-            // Formulaire de contact
+
+            // Formulaire
             const contactForm = document.getElementById('contactForm');
             if (contactForm) {
                 contactForm.addEventListener('submit', (e) => {
@@ -1139,6 +1715,17 @@
                     contactForm.reset();
                 });
             }
+
+            // FAQ Accordion
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    faqItems.forEach(faq => faq.classList.remove('active'));
+                    if (!isActive) item.classList.add('active');
+                });
+            });
         });
     </script>
 </body>
